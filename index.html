@@ -1,19 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News</title>
+    <title>أخبار الآن</title>
     <style>
-        img {
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .images-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .images-container img {
             width: 300px;
             height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <h1>Header Text</h1>
-    <img src="https://raw.githubusercontent.com/SHassan232/SHassan232-news/main/IMG-20250507-WA0015.jpg" alt="Image Description" style="width: 300px;">
-    <!-- Other content goes here -->
+    <div class="container">
+        <h1>أخبار الآن</h1>
+        <p>أبزر العناوين أولاً</p>
+        
+        <div class="images-container">
+            <img src="https://raw.githubusercontent.com/SHassan232/SHassan232-news/main/IMG-20250507-WA0015.jpg" alt="صورة الخبر 1">
+            <img src="https://raw.githubusercontent.com/SHassan232/SHassan232-news/main/IMG-20250507-WA0022.jpg" alt="صورة الخبر 2">
+        </div>
+    </div>
 </body>
 </html>
