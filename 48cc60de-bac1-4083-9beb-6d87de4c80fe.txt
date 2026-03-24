@@ -1,0 +1,9 @@
+أخبار الآن — موقع إخباري بسيط
+ملفات الموقع: index.html, article.html, submit.html, dashboard.html, styles.css, app.js, sitemap.xml, robots.txt
+
+خطوات سريعة للنشر:
+1. ارفع الملفات إلى المستودع (root).
+2. في GitHub: Settings → Pages → Source = main, Folder = / (root) → Save.
+3. انتظر ثم افتح: https://SHassan232.github.io/SHassan232-news/
+4. لإنشاء نموذج استقبال: سجل في https://formspree.io واخذ FORM_ID ثم في submit.html غيّر action إلى https://formspree.io/f/FORM_ID
+5. لعرض المسودات في dashboard: استخدم Make أو Google Sheets أو GitHub Issues لإنتاج JSON عام، ثم ضع رابط JSON في dashboard.html في المتغير URL_SUBMISSIONS.

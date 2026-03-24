@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>لوحة المراجعة — أخبار الآن</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="container"><h1 class="site-title">لوحة المراجعة</h1></div></header>
+  <main class="container">
+    <p>هنا تظهر المسودات الواردة. بعد الموافقة انسخ المحتوى وأنشئ ملف HTML مقال جديد أو اضف إلى newsData في app.js ثم ارفع للمستودع.</p>
+    <div id="submissions">تحميل المسودات...</div>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© <span id="y2"></span> أخبار الآن</p></div></footer>
+  <script>document.getElementById('y2').textContent=new Date().getFullYear();
+// ضع هنا رابط JSON للمسودات الذي ستحصّل عليه من Make/Sheety/AppsScript
+const URL_SUBMISSIONS = 'https://path.to/your/submissions.json'; // غيّر هذا
+fetch(URL_SUBMISSIONS).then(r=>r.json()).then(data=>{
+  const wr = document.getElementById('submissions');
+  if(!data || !data.length) { wr.innerHTML = '<p>لا توجد مسودات حالياً.</p>'; return; }
+  wr.innerHTML = data.map(s=>`
+    <article class="news-card">
+      <h3>${escapeHtml(s.title||'بدون عنوان')}</h3>
+      <p>${escapeHtml(s.description||'')}</p>
+      <p class="news-meta">${escapeHtml(s.author||'--')} — ${escapeHtml(s.date||'--')}</p>
+      <details><summary>المحتوى</summary><div style="margin-top:8px">${s.content||''}</div></details>
+      <p><strong>كيفية النشر:</strong> انسخ المحتوى وأنشئ ملف مقال جديد أو أدخله في newsData ثم ارفع عبر Git.</p>
+    </article>`).join('');
+}).catch(()=>{document.getElementById('submissions').innerHTML='<p>تعذّر جلب المسودات. تحقق من إعداد Webhook أو URL.</p>'});
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أرسل خبر — أخبار الآن</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header"><div class="container"><h1 class="site-title">أخبار الآن</h1></div></header>
+  <main class="container">
+    <h2>أرسل خبراً للمراجعة</h2>
+    <form id="submit-form" method="POST" action="https://formspree.io/f/FORM_ID">
+      <label>العنوان:<br><input name="title" required></label><br><br>
+      <label>الملخص:<br><textarea name="description" rows="3" required></textarea></label><br><br>
+      <label>المحتوى (HTML مسموح):<br><textarea name="content" rows="8" required></textarea></label><br><br>
+      <label>رابط صورة (اختياري):<br><input name="image"></label><br><br>
+      <label>اسم المرسل:<br><input name="author"></label><br><br>
+      <input type="hidden" name="_subject" value="إرسال خبر جديد — أخبار الآن">
+      <input type="hidden" name="_language" value="ar">
+      <button type="submit">إرسال للمراجعة</button>
+    </form>
+
+    <p id="status" aria-live="polite"></p>
+  </main>
+  <footer class="site-footer"><div class="container"><p>© <span id="y"></span> أخبار الآن</p></div></footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();
+  const form=document.getElementById('submit-form'); const status=document.getElementById('status');
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const data=new FormData(form);
+    fetch(form.action,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+    .then(r=>r.ok? r.json(): Promise.reject(r))
+    .then(()=>{status.textContent='تم الإرسال. ستصلك إشعار بالبريد لمراجعة الخبر.'; form.reset();})
+    .catch(()=>{status.textContent='حدث خطأ أثناء الإرسال. جرّب لاحقاً.';});
+  });
+  </script>
+</body>
+</html>

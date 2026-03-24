@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title id="article-title">عنوان المقال — أخبار الآن</title>
+  <meta name="description" id="article-desc" content="">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json" id="ld-json"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">أخبار الآن</h1>
+      <nav><a href="index.html">الرئيسية</a> · <a href="submit.html">أرسل خبر</a> · <a href="dashboard.html">لوحة المراجعة</a></nav>
+    </div>
+  </header>
+
+  <main class="container article-container">
+    <article id="article">
+      <h2 id="title"></h2>
+      <p class="meta"><span id="author"></span> — <time id="date"></time></p>
+      <img id="image" alt="" class="article-image" />
+      <div id="content" class="article-content"></div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year2"></span> أخبار الآن</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('year2').textContent = new Date().getFullYear();
+    // app.js سيحمّل بيانات المقال من query string ?id=...
+  </script>
+</body>
+</html>

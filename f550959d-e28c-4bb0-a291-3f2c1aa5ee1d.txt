@@ -1,0 +1,73 @@
+// بيانات مبدئية — بعد الموافقة ضع مقالات جديدة هنا أو أنشئ ملفات posts/
+const newsData = [
+  {
+    id: "1",
+    title: "افتتاح موقع أخبار الآن",
+    description: "إطلاق أول نسخة من موقع أخبار الآن بالعربية.",
+    content: "<p>نرحب بكم في موقع أخبار الآن. هذا نص تجريبي للمقالة الأولى.</p>",
+    image: "https://via.placeholder.com/1000x600?text=أخبار+الآن",
+    author: "فريق التحرير",
+    date: "2026-03-24T08:00:00Z"
+  },
+  {
+    id: "2",
+    title: "خبر تقني: تحديث مهم",
+    description: "ملخص الخبر التقني السريع.",
+    content: "<p>تفاصيل الخبر التقني هنا. هذا محتوى تجريبي لموقع الأخبار.</p>",
+    image: "https://via.placeholder.com/1000x600?text=تقنية",
+    author: "محرر التقنية",
+    date: "2026-03-24T09:30:00Z"
+  }
+];
+
+function renderList(){
+  const list = document.getElementById('news-list');
+  if(!list) return;
+  list.innerHTML = '';
+  newsData.forEach(item=>{
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    card.innerHTML = `
+      <img src="${item.image}" alt="${escapeHtml(item.title)}">
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
+      <p class="news-meta">${new Date(item.date).toLocaleString('ar-EG')}</p>
+      <a href="article.html?id=${encodeURIComponent(item.id)}" aria-label="اقرأ المزيد">اقرأ المزيد →</a>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function renderArticle(){
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  if(!id) return;
+  const item = newsData.find(n=>n.id===id);
+  if(!item) return;
+  document.getElementById('title').textContent = item.title;
+  document.getElementById('author').textContent = item.author;
+  document.getElementById('date').textContent = new Date(item.date).toLocaleString('ar-EG');
+  const img = document.getElementById('image');
+  img.src = item.image;
+  img.alt = item.title;
+  document.getElementById('content').innerHTML = item.content;
+  document.getElementById('article-title').textContent = item.title + " — أخبار الآن";
+  document.getElementById('article-desc').setAttribute('content', item.description);
+
+  const ld = {
+    "@context":"https://schema.org",
+    "@type":"NewsArticle",
+    "headline": item.title,
+    "image":[item.image],
+    "datePublished": item.date,
+    "author": {"@type":"Person","name": item.author},
+    "publisher": {"@type":"Organization","name":"أخبار الآن","logo":{"@type":"ImageObject","url":"https://via.placeholder.com/200x50?text=Logo"}}
+  };
+  const ldEl = document.getElementById('ld-json');
+  if(ldEl) ldEl.textContent = JSON.stringify(ld);
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]); }
+
+if(document.getElementById('news-list')) renderList();
+if(document.getElementById('article')) renderArticle();

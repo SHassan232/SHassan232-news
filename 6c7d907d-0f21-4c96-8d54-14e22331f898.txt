@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://SHassan232.github.io/SHassan232-news/sitemap.xml
